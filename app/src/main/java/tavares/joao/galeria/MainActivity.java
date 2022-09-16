@@ -1,11 +1,13 @@
 package tavares.joao.galeria;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,5 +26,18 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.main_activity_tb, menu);
         return true;
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.opCamera:
+                dispatchTakePictureIntent();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    private void dispatchTakePictureIntent() {
+    }
+
 
 }
