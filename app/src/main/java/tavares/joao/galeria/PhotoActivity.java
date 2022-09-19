@@ -16,6 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import java.io.File;
+
 public class PhotoActivity extends AppCompatActivity {
 
     String photoPath;
@@ -25,7 +27,7 @@ public class PhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
-        Toolbar toolbar = findViewById(R.id.tbMain);
+        Toolbar toolbar = findViewById(R.id.tbPhoto);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -34,7 +36,6 @@ public class PhotoActivity extends AppCompatActivity {
         Intent i = getIntent();
         photoPath = i.getStringExtra("photo_path");
 
-        NinePatch Utils;
         Bitmap bitmap = Utils.getBitmap(photoPath);
         ImageView imPhoto = findViewById(R.id.imPhoto);
         imPhoto.setImageBitmap(bitmap);

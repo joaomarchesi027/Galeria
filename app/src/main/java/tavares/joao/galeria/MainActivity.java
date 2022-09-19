@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File[] files = dir.listFiles();
-        List<String> photos;
+        List<String> photos = null;
         for(int i = 0; i < files.length; i++) {
             photos.add(files[i].getAbsolutePath());
         }
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         rvGallery.setAdapter(mainAdapter);
 
         float w = getResources().getDimension(R.dimen.itemWidth);
-        Object Utils;
         int numberOfColumns = Utils.calculateNoOfColumns(MainActivity.this, w);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, numberOfColumns);
         rvGallery.setLayoutManager(gridLayoutManager);
@@ -131,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RESULT_TAKE_PICTURE) {
             if(resultCode == Activity.RESULT_OK) {
-                ArraySet<String> photos;
+                ArraySet<String> photos = null;
                 photos.add(currentPhotoPath);
                 mainAdapter.notifyItemInserted(photos.size()-1);
             }
