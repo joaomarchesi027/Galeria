@@ -37,6 +37,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     MainAdapter mainAdapter;
+    List<String> photos = new ArrayList<>();
+    String currentPhotoPath;
+    static int RESULT_TAKE_PICTURE = 1;
+    static int RESULT_REQUEST_PERMISSION = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File[] files = dir.listFiles();
-        List<String> photos = null;
         for(int i = 0; i < files.length; i++) {
             photos.add(files[i].getAbsolutePath());
         }
@@ -94,9 +98,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    static int RESULT_TAKE_PICTURE = 1;
-
-    String currentPhotoPath;
 
     private void dispatchTakePictureIntent() {
         File f = null;
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         currentPhotoPath = f.getAbsolutePath();
 
         if(f != null) {
-            Uri fUri = FileProvider.getUriForFile(MainActivity.this, "trindade.daniel.galeria.fileprovider", f);
+            Uri fUri = FileProvider.getUriForFile(MainActivity.this, "tavares.joao.galeria.fileprovider", f);
             Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             i.putExtra(MediaStore.EXTRA_OUTPUT, fUri);
             startActivityForResult(i, RESULT_TAKE_PICTURE);
@@ -128,20 +129,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RESULT_TAKE_PICTURE) {
+        if (requestCode == RESULT_TAKE_PICTURE) {
+            //Se a foto foi tirada
             if(resultCode == Activity.RESULT_OK) {
-                ArraySet<String> photos = null;
+                //Seu local é adicionado na lista de fotos
                 photos.add(currentPhotoPath);
+                //E o RV será atualizado também
                 mainAdapter.notifyItemInserted(photos.size()-1);
             }
+            //Se a foto NÃO foi tirada
             else {
+                //O Arquivo que seria usado para armazená-la será excluído
                 File f = new File(currentPhotoPath);
                 f.delete();
             }
         }
     }
-
-    static int RESULT_REQUEST_PERMISSION = 2;
 
     private void checkForPermissions(List<String> permissions) {
         List<String> permissionsNotGranted = new ArrayList<>();

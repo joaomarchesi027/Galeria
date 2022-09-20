@@ -1,5 +1,6 @@
 package tavares.joao.galeria;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.NinePatch;
 import android.view.LayoutInflater;
@@ -32,11 +33,11 @@ public class MainAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return photos.size();
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ImageView imPhoto = holder.itemView.findViewById(R.id.imItem);
         int w = (int) mainActivity.getResources().getDimension(R.dimen.itemWidth);
         int h = (int) mainActivity.getResources().getDimension(R.dimen.itemHeight);

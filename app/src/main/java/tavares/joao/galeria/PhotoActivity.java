@@ -46,7 +46,7 @@ public class PhotoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_activity_tb, menu);
+        inflater.inflate(R.menu.photo_activity_tb, menu);
         return true;
     }
     @Override
@@ -61,8 +61,7 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     void sharePhoto() {
-        // Codigo para cpmpartiilhar a foto
-        Uri photoUri = FileProvider.getUriForFile(PhotoActivity.this, "trindade.daniel.galeria.fileprovider", new File(photoPath));
+        Uri photoUri = FileProvider.getUriForFile(PhotoActivity.this, "tavares.joao.galeria.fileprovider", new File(photoPath));
         Intent i = new Intent(Intent.ACTION_SEND);
         i.putExtra(Intent.EXTRA_STREAM, photoUri);
         i.setType("image/jpeg");
